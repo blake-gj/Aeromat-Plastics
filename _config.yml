@@ -1,0 +1,44 @@
+# Site settings
+title: Aeromat.io
+description: A simple website built with GitHub Pages and Markdown
+baseurl: "" # Leave blank for GitHub Pages
+url: "https://blake-gj.github.io/Aeromat-Plastics/" # Replace with your GitHub Pages URL or custom domain
+
+# Theme settings
+theme: minima # Change this if you use a different theme
+
+# Author information
+author:
+  name: Your Name
+  email: your.email@example.com
+
+# Navigation links
+# These will appear as navigation links if the theme supports it.
+# Add or remove links as needed.
+nav_links:
+  - name: Home
+    link: /
+  - name: About
+    link: /about.html
+  - name: Contact
+    link: /contact.html
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude files and directories from processing
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+
+# Plugins (if required)
+# These plugins can extend functionality (e.g., generating sitemaps).
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Additional configuration
+paginate: 5 # Number of posts per page (if you add blog posts)
