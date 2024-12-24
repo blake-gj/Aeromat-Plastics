@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-md-color-scheme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+    {% seo %}
+    <style>
+        .hero {
+            padding: var(--md-space-16) var(--md-space-4);
+            text-align: center;
+            background: var(--md-sys-color-surface-container);
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .hero h1 {
+            font-size: var(--md-typescale-display-medium);
+            margin-bottom: var(--md-space-4);
+            color: var(--md-sys-color-on-surface);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: var(--md-typescale-headline-small);
+            max-width: 600px;
+            margin: 0 auto var(--md-space-8);
+            color: var(--md-sys-color-on-surface-variant);
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--md-space-3) var(--md-space-6);
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 500;
+            font-size: var(--md-typescale-body-large);
+            transition: all 0.2s;
+            box-shadow: var(--md-elevation-level-1);
+        }
+
+        .cta-button:hover {
+            background: var(--md-sys-color-primary);
+            box-shadow: var(--md-elevation-level-2);
+            transform: translateY(-1px);
+        }
+
+        .cta-button .material-icons-round {
+            margin-left: var(--md-space-2);
+        }
+
+        .quick-links {
+            padding: var(--md-space-16) var(--md-space-4);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .quick-links h2 {
+            text-align: center;
+            margin-bottom: var(--md-space-8);
+            font-size: var(--md-typescale-headline-medium);
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--md-space-4);
+            padding: 0 var(--md-space-4);
+        }
+
+        .link-card {
+            background: var(--md-sys-color-surface-container);
+            padding: var(--md-space-6);
+            border-radius: 16px;
+            transition: all 0.2s;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            box-shadow: var(--md-elevation-level-1);
+        }
+
+        .link-card:hover {
+            box-shadow: var(--md-elevation-level-2);
+            transform: translateY(-2px);
+            border-color: var(--md-sys-color-outline);
+        }
+
+        .link-card h3 {
+            margin: 0 0 var(--md-space-2);
+            color: var(--md-sys-color-on-surface);
+            font-size: var(--md-typescale-headline-small);
+            font-weight: 500;
+        }
+
+        .link-card p {
+            margin: 0;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: var(--md-typescale-body-large);
+            line-height: 1.6;
+        }
+
+        .featured-docs {
+            padding: var(--md-space-16) var(--md-space-4);
+            background: var(--md-sys-color-surface-container-low);
+            border-top: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .featured-docs h2 {
+            text-align: center;
+            margin-bottom: var(--md-space-8);
+            font-size: var(--md-typescale-headline-medium);
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--md-space-4);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--md-space-4);
+        }
+
+        .doc-card {
+            background: var(--md-sys-color-surface-container);
+            padding: var(--md-space-6);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            box-shadow: var(--md-elevation-level-1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doc-card:hover {
+            box-shadow: var(--md-elevation-level-2);
+            transform: translateY(-2px);
+            border-color: var(--md-sys-color-outline);
+        }
+
+        .doc-card h3 {
+            margin: 0 0 var(--md-space-2);
+            color: var(--md-sys-color-on-surface);
+            font-size: var(--md-typescale-headline-small);
+            font-weight: 500;
+        }
+
+        .doc-card p {
+            margin: 0;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: var(--md-typescale-body-large);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--md-space-8) var(--md-space-4);
+            }
+
+            .hero h1 {
+                font-size: var(--md-typescale-display-small);
+            }
+
+            .hero p {
+                font-size: var(--md-typescale-body-large);
+            }
+
+            .quick-links, .featured-docs {
+                padding: var(--md-space-8) var(--md-space-4);
+            }
+
+            .links-grid, .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>{{ site.title }}</h1>
+        <p>{{ site.description }}</p>
+        <a href="{{ '/docs/introduction' | relative_url }}" class="cta-button">
+            Get Started
+            <span class="material-icons-round">arrow_forward</span>
+        </a>
+    </div>
+
+    <section class="quick-links">
+        <h2>Quick Links</h2>
+        <div class="links-grid">
+            <div class="link-card">
+                <h3>Material Resources</h3>
+                <p>Access specifications, certifications, and application guides for performance plastics.</p>
+            </div>
+            <div class="link-card">
+                <h3>Design Guidelines</h3>
+                <p>Learn best practices for designing with performance plastics and thermal considerations.</p>
+            </div>
+            <div class="link-card">
+                <h3>Machining & Fabrication</h3>
+                <p>Explore machining parameters, finishing techniques, and assembly guidelines.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-docs">
+        <h2>Featured Documentation</h2>
+        <div class="docs-grid">
+            {% for doc in site.docs limit:3 %}
+            <a href="{{ doc.url | relative_url }}" class="doc-card">
+                <h3>{{ doc.title }}</h3>
+                <p>{{ doc.excerpt | strip_html | truncate: 120 }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <script>
+        // Theme toggle functionality
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+        const html = document.documentElement;
+        
+        // Set initial theme based on system preference
+        if (localStorage.getItem('theme')) {
+            html.setAttribute('data-md-color-scheme', localStorage.getItem('theme'));
+        } else {
+            html.setAttribute('data-md-color-scheme', prefersDark.matches ? 'dark' : 'light');
+        }
+        
+        // Listen for system theme changes
+        prefersDark.addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                html.setAttribute('data-md-color-scheme', e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
+</body>
+</html> 

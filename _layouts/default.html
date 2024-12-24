@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}Aeromat Plastics Documentation</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}Comprehensive documentation for Aeromat Plastics products and services{% endif %}">
+    
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}Aeromat Plastics Documentation{% endif %}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}Comprehensive documentation for Aeromat Plastics products and services{% endif %}">
+    <meta property="og:image" content="/assets/images/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/docs.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload Important Assets -->
+    <link rel="preload" href="/assets/images/logo.png" as="image">
+    <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+        <div class="container">
+            <nav class="main-nav" role="navigation" aria-label="Main navigation">
+                <a href="/" class="logo" aria-label="Aeromat Plastics Home">
+                    <img src="/assets/images/logo_black.svg" alt="Aeromat Plastics Logo" class="logo-light" height="40">
+                    <img src="/assets/images/logo_white.svg" alt="Aeromat Plastics Logo" class="logo-dark" height="40">
+                </a>
+                <div class="nav-links">
+                    <a href="/docs/getting-started" aria-label="Getting Started Guide">Getting Started</a>
+                    <a href="/docs/products" aria-label="Product Documentation">Products</a>
+                    <a href="/docs/support" aria-label="Technical Support">Support</a>
+                    <a href="https://aeromat-plastics.com" target="_blank" rel="noopener noreferrer" aria-label="Main Aeromat Plastics Website">Main Site</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="main-content" role="main">
+        {{ content }}
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Documentation</h3>
+                    <ul>
+                        <li><a href="/docs/getting-started">Getting Started</a></li>
+                        <li><a href="/docs/products">Products</a></li>
+                        <li><a href="/docs/specifications">Specifications</a></li>
+                        <li><a href="/docs/processes">Manufacturing Process</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/docs/case-studies">Case Studies</a></li>
+                        <li><a href="/docs/whitepapers">White Papers</a></li>
+                        <li><a href="/docs/faq">FAQ</a></li>
+                        <li><a href="/docs/support">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="mailto:support@aeromat-plastics.com">Email Support</a></li>
+                        <li><a href="tel:+1234567890">Call Us</a></li>
+                        <li><a href="/contact">Contact Form</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {{ site.time | date: '%Y' }} Aeromat Plastics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark mode toggle button -->
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Dark mode functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const html = document.documentElement;
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+            
+            function updateThemeIcon(theme) {
+                icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-docs');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = encodeURIComponent(this.value);
+                    window.location.href = `/docs/search?q=${query}`;
+                }
+            });
+        }
+
+        // Add loading state to cards when clicked
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.add('loading');
+            });
+        });
+    </script>
+</body>
+</html> 

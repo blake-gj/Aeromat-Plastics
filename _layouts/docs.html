@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    {% include head.html %}
+</head>
+<body class="docs-body">
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    {% include header.html %}
+
+    <div class="docs-container">
+        <aside class="docs-sidebar" role="navigation" aria-label="Documentation navigation">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="sidebar-search">
+                    <input type="search" placeholder="Search docs..." aria-label="Search documentation">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section" data-section="design-guides">
+                    <h3>Design Guides</h3>
+                    <ul>
+                        <li><a href="/docs/design-guides/introduction">Introduction</a></li>
+                        <li><a href="/docs/design-guides/best-practices">Best Practices</a></li>
+                        <li><a href="/docs/design-guides/tolerances">Tolerances</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section" data-section="machining">
+                    <h3>Machining</h3>
+                    <ul>
+                        <li><a href="/docs/machining/processes">Processes</a></li>
+                        <li><a href="/docs/machining/capabilities">Capabilities</a></li>
+                        <li><a href="/docs/machining/surface-finishes">Surface Finishes</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-section" data-section="materials">
+                    <h3>Materials</h3>
+                    <ul>
+                        <li><a href="/docs/materials/plastics">Plastics</a></li>
+                        <li><a href="/docs/materials/composites">Composites</a></li>
+                        <li><a href="/docs/materials/properties">Properties</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <main id="main-content" class="docs-content" role="main">
+            <div class="content-wrapper">
+                <nav class="breadcrumbs" aria-label="breadcrumb">
+                    <ol>
+                        <li><a href="/docs">Docs</a></li>
+                        {% if page.section %}<li><a href="/docs/{{ page.section }}">{{ page.section | capitalize }}</a></li>{% endif %}
+                        <li aria-current="page">{{ page.title }}</li>
+                    </ol>
+                </nav>
+
+                <article class="docs-article">
+                    <header class="article-header">
+                        <h1>{{ page.title }}</h1>
+                        {% if page.description %}
+                        <p class="article-description">{{ page.description }}</p>
+                        {% endif %}
+                    </header>
+
+                    <div class="article-content">
+                        {{ content }}
+                    </div>
+
+                    <footer class="article-footer">
+                        <div class="article-meta">
+                            <div class="last-updated">
+                                Last updated: {{ page.last_modified_at | default: site.time | date: "%B %d, %Y" }}
+                            </div>
+                            <div class="article-tags">
+                                {% for tag in page.tags %}
+                                <span class="tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="article-nav">
+                            {% if page.previous %}
+                            <a href="{{ page.previous.url }}" class="prev">
+                                <span>Previous</span>
+                                <div>{{ page.previous.title }}</div>
+                            </a>
+                            {% endif %}
+                            {% if page.next %}
+                            <a href="{{ page.next.url }}" class="next">
+                                <span>Next</span>
+                                <div>{{ page.next.title }}</div>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </footer>
+                </article>
+            </div>
+
+            <div class="docs-toc">
+                <div class="toc-header">On this page</div>
+                <nav class="toc-nav">
+                    <!-- This will be populated by JavaScript -->
+                </nav>
+            </div>
+        </main>
+    </div>
+
+    {% include footer.html %}
+
+    <!-- Dark mode toggle button -->
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script>
+        // Generate table of contents
+        document.addEventListener('DOMContentLoaded', function() {
+            const article = document.querySelector('.article-content');
+            const tocNav = document.querySelector('.toc-nav');
+            const headings = article.querySelectorAll('h2, h3');
+            const toc = document.createElement('ul');
+
+            headings.forEach((heading, index) => {
+                const id = `heading-${index}`;
+                heading.id = id;
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = heading.textContent;
+                a.className = heading.tagName.toLowerCase();
+                
+                li.appendChild(a);
+                toc.appendChild(li);
+            });
+
+            tocNav.appendChild(toc);
+        });
+
+        // Mobile sidebar toggle
+        const sidebarToggle = document.querySelector('.sidebar-toggle');
+        const docsContainer = document.querySelector('.docs-container');
+        
+        sidebarToggle.addEventListener('click', function() {
+            docsContainer.classList.toggle('sidebar-open');
+        });
+
+        // Dropdown functionality for sidebar navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all nav sections
+            const navSections = document.querySelectorAll('.nav-section');
+            
+            // Add click handlers to section headers
+            navSections.forEach(section => {
+                const header = section.querySelector('h3');
+                
+                // Get section name from data attribute
+                const sectionName = section.dataset.section;
+                
+                // Get collapsed state from localStorage or default to not collapsed
+                const isCollapsed = localStorage.getItem(`nav-${sectionName}-collapsed`) === 'true';
+                if (isCollapsed) {
+                    section.classList.add('collapsed');
+                }
+                
+                header.addEventListener('click', () => {
+                    section.classList.toggle('collapsed');
+                    // Store collapsed state
+                    localStorage.setItem(
+                        `nav-${sectionName}-collapsed`,
+                        section.classList.contains('collapsed')
+                    );
+                });
+            });
+            
+            // Expand the section of the current page
+            const currentPath = window.location.pathname;
+            navSections.forEach(section => {
+                const links = section.querySelectorAll('a');
+                links.forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        section.classList.remove('collapsed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

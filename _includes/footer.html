@@ -1,0 +1,87 @@
+<footer class="site-footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Documentation</h3>
+                <ul>
+                    <li><a href="/docs/getting-started/introduction">Getting Started</a></li>
+                    <li><a href="/docs/products/overview">Products</a></li>
+                    <li><a href="/docs/manufacturing/process">Manufacturing</a></li>
+                    <li><a href="/docs/support/faq">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="/docs/resources/case-studies">Case Studies</a></li>
+                    <li><a href="/docs/resources/whitepapers">White Papers</a></li>
+                    <li><a href="/docs/manufacturing/certifications">Certifications</a></li>
+                    <li><a href="/docs/support/technical">Technical Support</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="/docs/support/contact">Contact Us</a></li>
+                    <li><a href="/docs/support/technical">Technical Support</a></li>
+                    <li><a href="/docs/support/faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; {{ 'now' | date: "%Y" }} Aeromat Plastics. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Theme toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Get theme from localStorage or system preference
+    const currentTheme = localStorage.getItem('theme') || 
+                        (prefersDarkScheme.matches ? 'dark' : 'light');
+    
+    // Set initial theme
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    
+    // Theme toggle click handler
+    themeToggle?.addEventListener('click', function() {
+        const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' 
+                        ? 'light' 
+                        : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+    
+    // Update theme icon
+    function updateThemeIcon(theme) {
+        const icon = themeToggle?.querySelector('i');
+        if (icon) {
+            icon.className = theme === 'dark' 
+                            ? 'fas fa-sun' 
+                            : 'fas fa-moon';
+        }
+    }
+});
+
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    menuToggle?.addEventListener('click', function() {
+        mainNav?.classList.toggle('show');
+        this.querySelector('i').classList.toggle('fa-bars');
+        this.querySelector('i').classList.toggle('fa-times');
+    });
+});
+</script> 

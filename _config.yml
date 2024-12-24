@@ -1,44 +1,153 @@
-# Site settings
-title: Aeromat.io
-description: A simple website built with GitHub Pages and Markdown
-baseurl: "" # Leave blank for GitHub Pages
-url: "https://blake-gj.github.io/Aeromat-Plastics/" # Replace with your GitHub Pages URL or custom domain
+title: Aeromat Documentation
+description: Technical documentation for performance plastics manufacturing
+baseurl: ""
+url: "https://docs.aeromat.io"
 
 # Theme settings
-theme: minima # Change this if you use a different theme
-
-# Author information
-author:
-  name: Your Name
-  email: your.email@example.com
-
-# Navigation links
-# These will appear as navigation links if the theme supports it.
-# Add or remove links as needed.
-nav_links:
-  - name: Home
-    link: /
-  - name: About
-    link: /about.html
-  - name: Contact
-    link: /contact.html
-
-# Markdown settings
+theme: null
 markdown: kramdown
 highlighter: rouge
 
-# Exclude files and directories from processing
-exclude:
-  - README.md
-  - LICENSE
-  - Gemfile
-  - Gemfile.lock
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
 
-# Plugins (if required)
-# These plugins can extend functionality (e.g., generating sitemaps).
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "docs"
+    values:
+      layout: "docs"
+      nav_order: 1
+
+# Build settings
+sass:
+  style: compressed
+  sass_dir: _sass
+
 plugins:
+  - jekyll-seo-tag
   - jekyll-sitemap
-  - jekyll-feed
 
-# Additional configuration
-paginate: 5 # Number of posts per page (if you add blog posts)
+# Navigation Structure
+nav_sections:
+  - title: Home
+    items:
+      - overview
+      - about
+      - contact
+      - style-guide
+  - title: Materials
+    items:
+      - title: Overview
+        path: materials/index
+      - title: Acetal
+        items:
+          - title: Copolymer (POM-C)
+            items:
+              - acetal-copolymer
+              - anti-static
+              - conductive
+              - glass-filled
+          - title: Homopolymer (Delrin®)
+            items:
+              - acetal-homopolymer
+              - glass-filled
+              - ptfe-filled
+          - material-guide
+      - title: Acrylic
+        items:
+          - cast
+          - extruded
+          - impact-modified
+          - material-guide
+      - title: CPVC
+        items:
+          - high-temperature
+          - material-guide
+      - title: Nylon
+        items:
+          - nylon-6
+          - nylon-66
+          - material-guide
+      - title: PEEK
+        items:
+          - glass-filled
+          - carbon-filled
+          - unfilled
+          - material-guide
+      - title: PET
+        items:
+          - pet-g
+          - pet-t
+          - material-guide
+      - title: Polycarbonate
+        items:
+          - standard
+          - uv-stabilized
+          - glass-filled
+          - material-guide
+      - title: Polyethylene
+        items:
+          - ldpe
+          - hdpe
+          - hmw
+          - uhmw
+          - material-guide
+      - title: Polypropylene
+        items:
+          - copolymer
+          - homopolymer
+          - material-guide
+      - title: PTFE
+        items:
+          - virgin
+          - title: Filled PTFE
+            items:
+              - glass-filled
+              - carbon-filled
+              - bronze-filled
+          - material-guide
+      - title: PVC
+        items:
+          - type-a
+          - type-b
+          - material-guide
+      - title: PVDF
+        items:
+          - high-purity
+          - chemical-resistant
+          - material-guide
+  - title: Design Guides
+    items:
+      - overview
+      - plastic-design
+      - fastener-design
+  - title: Machining
+    items:
+      - overview
+      - cnc-techniques
+      - plastics
+  - title: Welding
+    items:
+      - overview
+      - plastic-techniques
+      - materials
+
+# Theme Configuration
+theme_settings:
+  # Colors (Material Design 3 Dark Theme)
+  colors:
+    primary: "#4F78FF"
+    surface: "#121212"
+    surface_variant: "#1E1E1E"
+    on_surface: "#E1E1E1"
+    on_surface_variant: "#B3B3B3"
+  
+  # Typography
+  fonts:
+    body: "Inter, system-ui, -apple-system, sans-serif"
+    code: "JetBrains Mono, monospace" 
